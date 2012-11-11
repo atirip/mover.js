@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<script src=feature-detector-min.js></script>
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			position: relative;
+			border: 0;
+		}
+
+		body {
+			padding: 40px 0 0 100px;
+		}
+		p {
+			font: bold 16px/180% arial;
+			color: #444;
+			margin-top: 10px;
+		}
+		p.list {
+			font-weight: normal;
+			font-size: 90%;
+			text-indent: 20px;
+			margin-top: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div id=scroll>
+	<script>
+		document.write('<p> CSS vendor is "' + atirip.cssVendor + '"<p class=list>example usage: elem.style[atirip.jsVendor + "TransitionDuration"] = "5ms";')
+		document.write('<p> Javascript vendor is "' + atirip.jsVendor + '"<p class=list>example usage: $("img").css(atirip.cssVendor + "backface-visibility", "hidden");')
+
+		document.write('<p> this browser is: ')
+		for( var i in atirip.is ) {
+			if ( atirip.is.hasOwnProperty(i) && atirip.is[i] ) document.write('<p class=list>atirip.is.' + i + '')
+		}
+
+		document.write('<p> this browser has: ')
+		for( var i in atirip.has ) {
+			if ( atirip.has.hasOwnProperty(i) && atirip.has[i] ) document.write('<p class=list>atirip.has.' + i + ' ')
+		}
+		if ( atirip.has.transform)
+			document.write('<p> this browsers transitionEnd function is called: <p class=list>' + atirip.transitionEnd)
+
+		document.write('<p> this browser events: ')
+		for( var i in atirip.events ) {
+			if ( atirip.events.hasOwnProperty(i) ) document.write('<p class=list>atirip.events.' + i + ': ' + atirip.events[i])
+		}
+
+	</script>
+	</div>
+
+</body>
+</html>
