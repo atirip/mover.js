@@ -74,12 +74,16 @@ __options__ Javascript class of options where:
 __left__ desired position in pixels  
 __top__ desired position in pixels  
 __noTransform__ set true to force CSS transforms even if they are supported  
-__deferred__ set true to use jQuery Deffereds, pass along Deferred object to use some other Promise API. Passed object must have methods `resolve()` and `promise()` a'la jQuery Deferred.  
+__deferred__ set true to use jQuery Deffereds, pass along Deferred object to use some other Promise API. Passed object must have methods `resolve()`, `reject()` and `promise()` a'la jQuery Deferred.  
 __flatten__ removes CSS transition settings after done, default false  
 __time__ in ms, desired time for transition, set 0 for no animation, default 0  
 __easing__ easing if animated in CSS Transition style  ( f.e ease-out )  
 __round__ whether to round CSS translated coordinates, deafult is false  
-__callback__ function to call after transition is done (as an alternative to Deferred)  
+__success__ function to call after transition is done (as an alternative to Deferred)  
+__failure__ function to call if transition failed to start (as an alternative to Deferred) 
+ 
+mover sets `data-moving="1"` attribute on `node` when `time` is set, you cannot start another movement while current one is not finished. If you try, then `failure` is called or Deferred is rejected. 
+ 
 __animate__	function to call if there's no jQuery present and no CSS transformations support. Takes parameters identical to [http://api.jquery.com/animate/](http://api.jquery.com/animate/)
 		
 __boundaries__ class of x&y boundaries:

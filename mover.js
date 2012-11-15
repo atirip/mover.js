@@ -131,10 +131,6 @@ var mover = (function() {
 
 		setXY: function(node, options) {
 
-			// if somebody passed jQuery result?
-			node = node && node.length ? node[0] : node
-			if ( !node || !node.nodeName || (+getAttr(node, attrName)||0) ) return
-
 			options = options || {}
 			options.outOufBoundariesMultiplier = options.outOufBoundariesMultiplier || {
 				x: {min: 0, max : 0}, 
@@ -161,15 +157,15 @@ var mover = (function() {
 			,	dfd
 			,	X
 			,	Y
-			,	pos = this.getXY(node, options.round)
+			,	pos
 			,	transitionEnd
 			,	resolved = false
 			,	finish = function() {
 					setAttr(node, attrName, 0)
 					if ( options.deferred ) {
 						dfd.resolve()
-					} else if ( options.callback ) {
-						options.callback()
+					} else if ( options.success ) {
+						options.success()
 					}
 				}
 			,	useTransform = hasTransform
@@ -177,12 +173,28 @@ var mover = (function() {
 			;(undefined !== options.top) && (dest.top = checkBoundaries(~~options.top, 'y'))
 			;(undefined !== options.left) && (dest.left = checkBoundaries(~~options.left, 'x'))
 
+			// if somebody passed jQuery result?
+			node = node && node.length ? node[0] : node
+
 			// if not jQuery present you must pass deferred object, otherwise pass just true
 			if ( true === options.deferred && $ ) {
 				dfd = $.Deferred()
 			} else if ( options.deferred ) {
 				dfd = options.deferred
 			}
+
+			// if no node or we are in the move already, then fail
+			if ( !node || !node.nodeName || (+getAttr(node, attrName)||0) ) {
+				if ( options.deferred ) {
+					dfd.reject()
+					return dfd.promise()
+				} else if ( options.failure ) {
+					options.failure()
+				}
+				return
+			}
+
+			pos = this.getXY(node, options.round)
 
 			// default is to use transform when available
 			// set noTransform to true to force standard animation

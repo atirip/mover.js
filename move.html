@@ -48,7 +48,7 @@
 		,	node = document.getElementById('mover')
 		,	pos = mover.getXY(node)
 
-		// just set top, left
+		// just set simply top, left
 		mover.setXY(node, {
 			top: 100,
 			left: 700
@@ -61,7 +61,7 @@
 			left: 0,
 			time: 1000,
 			easing: 'ease-out',
-			callback: function() {
+			success: function() {
 				// with jQuery Deferred and CSS transitions
 				$ && $.when( mover.setXY(node, {
 						flatten: 1,
@@ -78,6 +78,16 @@
 			}
 		})
 
+		// this will fail as we are in the move when arriving here
+		$ && $.when(
+			mover.setXY(node, {
+				top: 0,
+				left: 0,
+				deferred: true
+			})
+		).fail(function() {
+			// console.log('failed');
+		});
 
 
 
