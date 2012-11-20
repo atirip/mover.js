@@ -62,23 +62,23 @@ Returns:
 	}
 
 Parameters:  
-__node__ is single, pure vanilla Javascript DOM Node ( or in jQuery something like $('foo')[0] )  
-__round__ whether to round CSS translated coordinates, deafult is false 
+__node__ is single, pure vanilla Javascript DOM Node ( or in jQuery something like `$('foo')[0]` )  
+__round__ whether to round CSS translated coordinates, deafult is `false` 
 
 	mover.setXY(node, options)
 
 Parameters:  
-__node__ is single, pure vanilla Javascript DOM Node ( or in jQuery something like $('foo')[0] )  
+__node__ is single, pure vanilla Javascript DOM Node ( or in jQuery something `like $('foo')[0]` )  
 __options__ Javascript class of options where:
 
 __left__ desired position in pixels  
 __top__ desired position in pixels  
-__noTransform__ set true to force CSS transforms even if they are supported  
-__deferred__ set true to use jQuery Deffereds, pass along Deferred object to use some other Promise API. Passed object must have methods `resolve()`, `reject()` and `promise()` a'la jQuery Deferred.  
-__flatten__ removes CSS transition settings after done, default false  
-__time__ in ms, desired time for transition, set 0 for no animation, default 0  
+__noTransform__ set `true` to force CSS transforms even if they are supported  
+__deferred__ set `true` to use jQuery Deffereds, pass along Deferred object to use some other Promise API. Passed object must have methods `resolve()`, `reject()` and `promise()` a'la jQuery Deferred.  
+__flatten__ removes CSS transition settings after done, default `false`  
+__time__ in ms, desired time for transition, set 0 for no animation, default `0`  
 __easing__ easing if animated in CSS Transition style  ( f.e ease-out )  
-__round__ whether to round CSS translated coordinates, deafult is false  
+__round__ whether to round CSS translated coordinates, deafult is `false`  
 __success__ function to call after transition is done (as an alternative to Deferred)  
 __failure__ function to call if transition failed to start (as an alternative to Deferred) 
  
@@ -113,6 +113,19 @@ __outOufBoundariesMultiplier__ class of x&y of out of boundaries multipliers
  	}
 
 useful when dragging and rubber effect is needed - when you move box out of boundaries, then actual amount of left, top parameters passed will be multiplied with these settings
+
+
+	mover.halt(node, options)
+
+Halts movement in progress
+
+Parameters:  
+__node__ is single, pure vanilla Javascript DOM Node ( or in jQuery something like `$('foo')[0]` )  
+__options__ Javascript class of options where:
+
+__noTransform__ set `true` to force CSS transforms even if they are supported  
+__flatten__ removes CSS transition settings, default `false`  
+
 
 ## Examples:
 

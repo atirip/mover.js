@@ -127,9 +127,9 @@ var mover = (function() {
 				pos.top = pos.y - pos.ty
 			}
 			return pos
-		},
+		}
 
-		setXY: function(node, options) {
+	,	setXY: function(node, options) {
 
 			options = options || {}
 			options.outOufBoundariesMultiplier = options.outOufBoundariesMultiplier || {
@@ -259,6 +259,40 @@ var mover = (function() {
 				return dfd.promise()
 			}				
 		}
+
+	,	halt: function(node, options) {
+			var pos
+			,	useTransform = hasTransform
+
+			// if somebody passed jQuery result?
+			node = node && node.length ? node[0] : node
+			if ( !node || !node.nodeName ) { return }
+
+			options = options || {}
+			// the same noTransfrom setting is expected what was used in setXY, no detection here
+			// if you use different, halt will not work as expected
+			true === options.noTransform && (useTransform = false)
+
+			if ( +getAttr(node, attrName)||0 ) {
+				setAttr(node, attrName, 0)
+				if (useTransform) {
+					pos = this.getXY(node)
+					node.style[jsVendor + 'Transition'] = ''
+					// cancelling transform will move element to the end destination, we do not want that
+					this.setXY(node, {
+						left: pos.x,
+						top: pos.y,
+						flatten: options.flatten
+					})
+				} else if ( $ ) {
+					$(node).stop()
+				} else if (options.stop) {
+					options.stop()
+				}
+				return true
+			}
+		}
+
 	}
 
 	return constructor
